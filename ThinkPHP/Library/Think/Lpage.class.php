@@ -94,7 +94,7 @@ class Lpage {
     private function pagenumber(){
         $pageF = stripos($this->pageType,'%pagenumber%');
         $pagenumber = '';$numberD = '';$F = '';$E ='';$omitF = '';$omitFA = '';$omitE = '';$omitEA = '';
-        if($pageF!==false){
+        if($pageF!==false || $pageD!==false){
             if($pageF!==false){
                 $number = $this->pageNumber%2==0?$this->pageNumber/2:($this->pageNumber+1)/2;
                 $DStart = $this->page - $number<0?$this->page - $number-1:0;
@@ -122,6 +122,13 @@ class Lpage {
         $this->pageType = str_ireplace(array('%F%','%E%','%omitFA%','%omitEA%','%omitF%','%omitE%','%pagenumber%'),array($F,$E,$omitFA,$omitEA,$omitF,$omitE,'<span class="number">'.$pagenumber.'</span>'),$this->pageType);
     }
 
+    /**
+     * 设置前置条件
+     */
+    public function setPrecon($value)
+    {
+        $this->precon=$value;
+    }
 
     /**
      * 设置条件字段
@@ -162,13 +169,6 @@ class Lpage {
         $this->columns=$value;
     }
 
-    /**
-     * 设置多表查询条件
-     */
-/*    public function setConditions($value)
-    {
-        $this->conditions=$value;
-    }*/
 
     /**
      * 设置多表排序条件
@@ -178,15 +178,11 @@ class Lpage {
         $this->orders=$value;
     }
 
-
-
-
     /**
      * 合成分页条件
      */
     public function composeCondition()
     {
-
         $arr=array();
         if(!empty($this->precon))
         {
@@ -194,7 +190,7 @@ class Lpage {
         }
         foreach ($this->field as $k => $v)
         {
-            if (!(empty($this->condition[$k])||empty($this->operation[$k])||empty($this->operation[$k])))
+            if (!(empty($this->condition[$k])||empty($this->operation[$k])))
             {
                 if(trim($this->operation[$k])=='like')
                 {
@@ -209,6 +205,7 @@ class Lpage {
 
         return implode('&&',$arr);
     }
+
 
     /**
      * 设置limit方法及计算起始条数和结束条数
@@ -321,12 +318,9 @@ class Lpage {
     public function js()
     {
 
-
-
         foreach ( $this->condition as $key => $value ) {
             $condition[$key] = urlencode ( $value );
         }
-
 
         $js="<script type='text/javascript'>
 //改变select
