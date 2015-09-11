@@ -1,5 +1,5 @@
 <?php
-namespace Home\Controller;
+namespace Management\Controller;
 use Think\Controller;
 class UserController extends Controller {
 
