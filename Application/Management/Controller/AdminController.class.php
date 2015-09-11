@@ -2,8 +2,7 @@
 namespace Management\Controller;
 use Think\Controller;
 class AdminController extends Controller {
-
-    public function userlist()
+    public function listUser()
     {
         $area=D('area_xz');
         $resultarea=$area->select();
@@ -14,7 +13,7 @@ class AdminController extends Controller {
         $page->pageNumber='6';
 
         $page->setTables('user_xz a,jgdm_xz b,area_xz c');
-        $page->setColumns('a.XM,a.SFZJLX ,a.SFZJH,a.GH,b.NAME as JG,a.EMAIL,a.TEL,c.NAME as QX');
+        $page->setColumns('a.ID,a.XM,a.SFZJLX ,a.SFZJH,a.GH,b.NAME as JG,a.EMAIL,a.TEL,c.NAME as QX');
         $page->setOrders('a.ID desc');
 
         $page->setPrecon('a.JGDM=b.ID&&a.AREA=c.ID');
@@ -34,7 +33,7 @@ class AdminController extends Controller {
 
         $this->assign('area',$resultarea);
         $this->assign('jg',$resultjg);
-        $this->assign('data',$page->list);// 赋值数据集
+        $this->assign('data',$page->list);
         $this->assign('page',$pager);
         $this->display();
 

@@ -207,6 +207,10 @@ class Lpage {
     }
 
 
+
+
+
+
     /**
      * 设置limit方法及计算起始条数和结束条数
      */
@@ -224,7 +228,7 @@ class Lpage {
             $this->page = intval($_POST[$this->pageParam]);
             $this->page=empty($this->page)?1:$this->page;
             $this->page = $this->page>=1?$this->page>$this->pageToatl?$this->pageToatl:$this->page:1;
-            $this->list=$D->table($this->tables)->field($this->columns)->order($this->orders)->limit(($this->page-1)*$this->pageSize.','.$this->pageSize)->where($this->composeCondition())->select();
+            $this->list=$D->table($this->tables)->field($this->columns)->order($this->orders)->limit(((($this->page-1)*$this->pageSize<0)?0:($this->page-1)*$this->pageSize).','.$this->pageSize)->where($this->composeCondition())->select();
             //echo $D->getlastsql();
         }
         else
@@ -318,9 +322,12 @@ class Lpage {
     public function js()
     {
 
+
+
         foreach ( $this->condition as $key => $value ) {
             $condition[$key] = urlencode ( $value );
         }
+
 
         $js="<script type='text/javascript'>
 //改变select
