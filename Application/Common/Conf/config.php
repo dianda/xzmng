@@ -10,6 +10,4 @@ return array(
     'DB_PORT'   => 3306, // 端口
     'DB_PREFIX' => '', // 数据库表前缀
     'DB_PARAMS'    =>    array(\PDO::ATTR_CASE => \PDO::CASE_NATURAL)
-
-
 );

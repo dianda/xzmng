@@ -5,6 +5,7 @@ class AdminController extends Controller {
 
     public function listUser()
     {
+        error_log('asdasda');
         $area=D('area_xz');
         $resultarea=$area->select();
         $jg=D('jgdm_xz');

@@ -186,41 +186,28 @@ class Lpage {
      */
     public function composeCondition()
     {
-        $cond='';
+
+        $arr=array();
         if(!empty($this->precon))
         {
-            $cond="(".$this->precon.")"."&&";
+            array_push($arr,"(".$this->precon.")");
         }
-        $i=0;
         foreach ($this->field as $k => $v)
         {
-            $i++;
-            if(trim($this->operation[$k])=='like')
+            if (!(empty($this->condition[$k])||empty($this->operation[$k])||empty($this->operation[$k])))
             {
-                $cond.="(".$this->field[$k]." ".$this->operation[$k]." '%".$this->condition[$k]."%')";
-                if($i!=count($this->field))
+                if(trim($this->operation[$k])=='like')
                 {
-                    $cond.="&&";
-                }
-            }
-            else
-            {
-                if (empty($this->condition[$k])||empty($this->operation[$k]))
-                {
-                    $cond=substr($cond,0, strlen($cond)-2);
+                    array_push($arr, "(".$this->field[$k]." ".$this->operation[$k]." '%".$this->condition[$k]."%')");
                 }
                 else
                 {
-                    $cond.="(".$this->field[$k]." ".$this->operation[$k]." ".$this->condition[$k].")";
-                    if($i!=count($this->field))
-                    {
-
-                        $cond.="&&";
-                    }
+                    array_push($arr,"(".$this->field[$k]." ".$this->operation[$k]." ".$this->condition[$k].")");
                 }
             }
         }
-        return $cond;
+
+        return implode('&&',$arr);
     }
 
     /**
