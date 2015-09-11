@@ -19,19 +19,19 @@ error_log($jg->getlastsql());
         $page->setOrders('a.ID desc');
 
         $page->setField(1,'a.JGDM');
-        $page->setOperation(1,'==');
+        $page->setOperation(1,'=');
         $page->setCondition(1,'b.ID');
 
         $page->setField(2,'a.AREA');
-        $page->setOperation(2,'==');
+        $page->setOperation(2,'=');
         $page->setCondition(2,'c.ID');
 
         $page->setField(3,'a.AREA');
-        $page->setOperation(3,'==');
+        $page->setOperation(3,'=');
         $page->setCondition(3,$_POST['condition1']);
 
         $page->setField(3,'a.JGDM');
-        $page->setOperation(3,'==');
+        $page->setOperation(3,'=');
         $page->setCondition(3,$_POST['condition2']);
 
         $page->setField(3,'a.JGDM');
