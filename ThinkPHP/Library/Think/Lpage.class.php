@@ -94,7 +94,7 @@ class Lpage {
     private function pagenumber(){
         $pageF = stripos($this->pageType,'%pagenumber%');
         $pagenumber = '';$numberD = '';$F = '';$E ='';$omitF = '';$omitFA = '';$omitE = '';$omitEA = '';
-        if($pageF!==false || $pageD!==false){
+        if($pageF!==false){
             if($pageF!==false){
                 $number = $this->pageNumber%2==0?$this->pageNumber/2:($this->pageNumber+1)/2;
                 $DStart = $this->page - $number<0?$this->page - $number-1:0;
