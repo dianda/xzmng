@@ -1,13 +1,52 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-<volist name="list" id="user">
-    {$user.id}:{$user.xm}<br/>
-</volist>
-
+<include file="Common:header" />
+<div id="middle">
+    <div class='filter'>
+        <p>
+            <select name='condition1' >
+                <option value=''>请选择区县</option>
+                <volist name="area" id="area">
+                    <option value={$area['ID']}>{$area['NAME']}</option>
+                </volist>
+            </select>
+            <select name='condition2' >
+                <option value=''>请选择机构</option>
+                <volist name="jg" id="jg">
+                    <option value={$jg['ID']}>{$jg['NAME']}</option>
+                </volist>
+            </select>
+            <input type="text" name="condition3" value=''/>
+            <button id="pagesubmit">确 定</button>
+        </p>
+    </div>
+    <div class="content">
+        <table>
+            <tr>
+                <td>姓名</td>
+                <td>身份证件类型</td>
+                <td>身份证件号</td>
+                <td>工号</td>
+                <td>机构</td>
+                <td>电子邮箱</td>
+                <td>手机号码</td>
+                <td>区县</td>
+            </tr>
+            <volist name="data" id="vo">
+                <tr>
+                    <td>{$vo['XM']}</td>
+                    <td>{$vo['SFZJLX']}</td>
+                    <td>{$vo['SFZJH']}</td>
+                    <td>{$vo['GH']}</td>
+                    <td>{$vo['JG']}</td>
+                    <td>{$vo['EMAIL']}</td>
+                    <td>{$vo['TEL']}</td>
+                    <td>{$vo['QX']}</td>
+                </tr>
+            </volist>
+        </table>
+        {$page}
+    </div>
+</div>
+<include file="Common:header" />
+</div>
 </body>
 </html>

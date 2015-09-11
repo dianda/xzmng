@@ -165,10 +165,10 @@ class Lpage {
     /**
      * 设置多表查询条件
      */
-    public function setConditions($value)
+/*    public function setConditions($value)
     {
         $this->conditions=$value;
-    }
+    }*/
 
     /**
      * 设置多表排序条件
@@ -182,7 +182,7 @@ class Lpage {
 
 
     /**
-     * 合成单表分页条件
+     * 合成分页条件
      */
     public function composeCondition()
     {
@@ -233,14 +233,14 @@ class Lpage {
         {
             $first = explode(" ",$this->tables);
             $D = D($first[0]);
-            $this->total = $D->table($this->tables)->field($this->columns)->order($this->orders)->where($this->conditions)->count();
+            $this->total = $D->table($this->tables)->field($this->columns)->order($this->orders)->where($this->composeCondition())->count();
             $this->pageSize = $this->pageSize<0?0:$this->pageSize;
             $this->pageNumber = $this->pageNumber<0?0:$this->pageNumber;
             $this->pageToatl = ceil($this->total/$this->pageSize);
             $this->page = intval($_POST[$this->pageParam]);
             $this->page=empty($this->page)?1:$this->page;
             $this->page = $this->page>=1?$this->page>$this->pageToatl?$this->pageToatl:$this->page:1;
-            $this->list=$D->table($this->tables)->field($this->columns)->order($this->orders)->limit(($this->page-1)*$this->pageSize.','.$this->pageSize)->where($this->conditions)->select();
+            $this->list=$D->table($this->tables)->field($this->columns)->order($this->orders)->limit(($this->page-1)*$this->pageSize.','.$this->pageSize)->where($this->composeCondition())->select();
             //echo $D->getlastsql();
         }
         else
