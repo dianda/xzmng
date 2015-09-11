@@ -20,17 +20,44 @@
             <button id="pagesubmit">确 定</button>
         </p>
     </div>
-
-
-
-
     <script type="text/javascript">
+        $(document).ready(function() {
+            var t9 = new PopupLayer({trigger:"#tcc",popupBlk:"#blktcc",closeBtn:"#closetcc",useOverlay:true,useFx:true,
+                offsets:{
+                    x:0,
+                    y:-41
+                }
+            });
+            t9.doEffects = function(way){
+                if(way == "open"){
+                    this.popupLayer.css({opacity:0.3}).show(400,function(){
+                        this.popupLayer.animate({
+                            left:($(document).width() - this.popupLayer.width())/2,
+                            top:(document.documentElement.clientHeight - this.popupLayer.height())/2 + $(document).scrollTop(),
+                            opacity:0.8
+                        },1000,function(){this.popupLayer.css("opacity",1)}.binding(this));
+                    }.binding(this));
+                }
+                else{
+                    this.popupLayer.animate({
+                        left:this.trigger.offset().left,
+                        top:this.trigger.offset().top,
+                        opacity:0.1
+                    },{duration:500,complete:function(){this.popupLayer.css("opacity",1);this.popupLayer.hide()}.binding(this)});
+                }
+            }
+        });
+
         function addmanage(value)
         {
             alert(value);
         }
+        function deleteuser(value)
+        {
+            alert(value);
+        }
     </script>
-
+    <style type="text/css">div[class='tigger']{float: left;color:rgb(33, 164, 244);}</style>
     <div class="content">
         <table class="table">
             <tr>
@@ -54,11 +81,28 @@
                     <td>{$vo['EMAIL']}</td>
                     <td>{$vo['TEL']}</td>
                     <td>{$vo['QX']}</td>
-                    <td><a href="javascript:void(0)" onclick='addmanage({$vo["ID"]})'>添加为管理员</a></td>
+                    <td> <div id="tcc" class="tigger">添加为管理员</div> <a href="javascript:void(0)" onclick="deleteuser({$vo['ID']})">删 除</a> </td>
+
                 </tr>
             </volist>
         </table>
         {$page}
     </div>
 </div>
+
+
+
+
+<div class="popupLayer" style="position: absolute; z-index: 2; width: 500px; height: 201px; display: none; left: 61px; top: 1742px; opacity: 1;"><div id="blktcc" class="blk" style="opacity: 1;">
+    <div class="head"><div class="head-right"></div></div>
+    <div class="main">
+        <h2>111</h2>
+        <a href="javascript:void(0)" id="closetcc" class="closeBtn">关闭</a>
+
+    </div>
+    <div class="foot"><div class="foot-right"></div></div>
+</div>
+</div>
+
+
 <include file="Common:footer" />
