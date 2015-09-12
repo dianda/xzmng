@@ -40,6 +40,16 @@ class AdminController extends Controller {
     }
 
 
+
+
+
+    public function listAdmin(){
+
+    }
+
+
+
+
     public function listAdmin(){
 
     }
