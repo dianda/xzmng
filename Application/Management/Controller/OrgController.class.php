@@ -3,8 +3,8 @@ namespace Management\Controller;
 use Think\Controller;
 class OrgController extends Controller {
 
-
-    public function listOrg(){
+    public function listOrg()
+    {
 
 
     }

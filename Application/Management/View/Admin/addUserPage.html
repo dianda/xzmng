@@ -1,0 +1,63 @@
+<include file="Common:header" />
+<div id="middle">
+    <div class="content">
+        <form action="{:U('Management/Admin/addUser')}"  method="post">
+            <ul>
+                <li>
+                    <label for="sfzjlx"> 身份证件类型</label>
+                    <select name="sfzjlx" id="sfzjlx">
+                        <option value="1">身份证</option>
+                        <option value="2">军人证</option>
+                        <option value="3">护照</option>
+                    </select>
+                </li>
+                <li>
+                    <label for="sfzjh"> 身份证件号</label> <input type="text" name="sfzjh"/>
+                </li>
+                <li>
+                    <label for="gh"> 工号</label> <input type="text" name="gh"/>
+                </li>
+                <li>
+                    <label for="jgdm">机构代码</label>
+                    <select name="jgdm" id="jgdm">
+                        <option value=''>请选择机构</option>
+                        <volist name="jg" id="jg">
+                            <option value={$jg['ID']}>{$jg['NAME']}</option>
+                        </volist>
+                    </select>
+                </li>
+                <li>
+                    <label for="email">电子邮箱</label> <input type="text" name="email"/>
+                </li>
+                <li>
+                    <label for="tel">手机</label> <input type="text" name="tel"/>
+                </li>
+                <li>
+                    <label for="xm">姓名</label> <input type="text" name="xm"/>
+                </li>
+                <li>
+                    <label for="area">区县</label>
+                    <select name="area" id="area">
+                    <option value=''>请选择区县</option>
+                    <volist name="area" id="area">
+                        <option value={$area['ID']}>{$area['NAME']}</option>
+                    </volist>
+                    </select>
+                </li>
+                <li>
+                <button>增加</button>
+                </li>
+            </ul>
+        </form>
+    </div>
+</div>
+<include file="Common:footer" />
+
+
+
+
+
+
+
+
+

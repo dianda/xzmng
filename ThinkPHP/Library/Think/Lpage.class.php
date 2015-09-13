@@ -230,6 +230,7 @@ class Lpage {
             $this->page = $this->page>=1?$this->page>$this->pageToatl?$this->pageToatl:$this->page:1;
             $this->list=$D->table($this->tables)->field($this->columns)->order($this->orders)->limit(((($this->page-1)*$this->pageSize<0)?0:($this->page-1)*$this->pageSize).','.$this->pageSize)->where($this->composeCondition())->select();
             //echo $D->getlastsql();
+
         }
         else
         {

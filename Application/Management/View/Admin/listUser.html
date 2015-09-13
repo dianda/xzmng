@@ -19,11 +19,13 @@
             <input type="text" name="condition3" value=''/>
             <button id="pagesubmit">确 定</button>
         </p>
+        <p>
+            <a href="{:U('Management/Admin/addUserPage')}"> 新增人员</a>
+        </p>
     </div>
-
     <script type="text/javascript">
         $(function ($) {
-            //弹出登录
+            //弹出层
             $(".tjwgly").hover(function () {
                 $(this).stop().animate({
                     opacity: '1'
@@ -47,56 +49,27 @@
                 var userid = $("#userid").val();
                 var glylb = $("#glylb").val();
                 if(userid=='')
-                { alert('数据错误！') }
+                { alert('数据错误！'); }
                 else if(glylb=='')
-                {alert('请选择管理员类型'');}
+                {alert('请选择管理员类型');}
                 else
                 {
-                    $.post("{:U('manage/admin/addmanager')}",{userid:userid,glylb:glylb},function(msg){
-                        if(msg=="ok"){alert（'添加成功！');}
-                        else
+                    $.post("{:U('Management/Admin/addManager')}",{userid:userid,glylb:glylb},function(msg){
+                        if($.trim(msg) =="ok")
                         {
-                            alert（'添加失败！');
+                            alert('添加成功！');
+                        }
+                        else if($.trim(msg)=="error")
+                        {
+                            alert('添加失败！');
+                        }
+                        else if($.trim(msg)=="ycz")
+                        {
+                            alert('已存在！');
                         }
                     });
                 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             //关闭
             $(".close_btn").hover(function () { $(this).css({ color: 'black' }) }, function () { $(this).css({ color: '#999' }) }).on('click', function () {
@@ -116,9 +89,14 @@
         {
             alert(value);
         }
+
         function deleteuser(value)
         {
-            alert(value);
+            if(window.confirm('你确定要删除吗？')){
+                window.location.href='{:U('Management/Admin/deleteUser')}'+'?userid='+value;
+            }else{
+                return false;
+            }
         }
     </script>
 
@@ -131,7 +109,6 @@
         </div>
         <input id='userid' type="text" style="display:none" value=""/>
         <div class="row">
-
             管理员类别：
             <select name="glylb" id="glylb">
                 <option value="">请选择管理员类别</option>

@@ -1,0 +1,122 @@
+<include file="Common:header" />
+<div id="middle">
+    <script type="text/javascript">
+        $(function ($) {
+            //弹出层
+            $("#tjwgly").hover(function () {
+                $(this).stop().animate({
+                    opacity: '1'
+                }, 600);
+            }, function () {
+                $(this).stop().animate({
+                    opacity: '0.6'
+                }, 1000);
+            }).on('click',function(){
+                $("body").append("<div id='mask'></div>");
+                $("#mask").addClass("mask").fadeIn("slow");
+                $("#tcc").fadeIn("slow");
+            });
+
+            $("#tccbtn").on('click', function () {
+                var userid = $("#userid").val();
+                var glylb = $("#glylb").val();
+                if(userid=='')
+                { alert('数据错误！'); }
+                else if(glylb=='')
+                {alert('请选择管理员类型');}
+                else
+                {
+                    $.post("{:U('Management/Admin/addOrg')}",{userid:userid,glylb:glylb},function(msg){
+                        if($.trim(msg) =="ok")
+                        {
+                            alert('添加成功！');
+                        }
+                        else if($.trim(msg)=="error")
+                        {
+                            alert('添加失败！');
+                        }
+                        else if($.trim(msg)=="ycz")
+                        {
+                            alert('已存在！');
+                        }
+                    });
+                }
+            });
+
+            //关闭
+            $(".close_btn").hover(function () { $(this).css({ color: 'black' }) }, function () { $(this).css({ color: '#999' }) }).on('click', function () {
+                $("#tcc").fadeOut("fast");
+                $("#mask").css({ display: 'none' });
+            });
+        });
+
+        function deleteorg(value)
+        {
+            if(window.confirm('你确定要删除吗？')){
+                window.location.href='{:U('Management/Admin/deleteOrg')}'+'?id='+value;
+            }else{
+                return false;
+            }
+        }
+    </script>
+
+
+
+
+
+    <div id="tcc">
+        <div class="row1">
+            添加<a href="javascript:void(0)" title="关闭窗口" class="close_btn" id="closeBtn">×</a>
+        </div>
+        <form action="{:U('Management/Admin/addOrg')}" method="post">
+            <div class="row">
+                机构名：<input type="text" id="orgname" name="orgname" value=""/>
+            </div>
+            <div class="row">
+                区县：
+                <select name='areaid' >
+                    <option value=''>请选择区县</option>
+                    <volist name="area" id="area">
+                        <option value={$area['ID']}>{$area['NAME']}</option>
+                    </volist>
+                </select>
+            </div>
+            <div class="row">
+                <button> 添加</button>
+            </div>
+        </form>
+    </div>
+
+    <p><span  id="tjwgly">添加机构</span></p>
+
+    <style type="text/css">div[id='tjwgly']{float: left;color:rgb(33, 164, 244);}</style>
+    <div class="content">
+        <table class="table">
+            <tr>
+                <td>序号</td>
+                <td>机构</td>
+                <td>区县</td>
+                <td>操作</td>
+            </tr>
+            <volist name="data" id="vo">
+                <tr>
+                    <td>{$i+$num}</td>
+                    <td>{$vo['JG']}</td>
+                    <td>{$vo['QX']}</td>
+                    <td> <a href="javascript:void(0)" onclick="deleteorg({$vo['ID']})">删 除</a> </td>
+                </tr>
+            </volist>
+        </table>
+        {$page}
+    </div>
+</div>
+<include file="Common:footer" />
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,46 @@
+<include file="Common:header" />
+<div id="middle">
+    <script type="text/javascript">
+        function deleteuser(value)
+        {
+            if(window.confirm('你确定要删除吗？')){
+                window.location.href='{:U('Management/Admin/deleteManager')}'+'?userid='+value;
+            }else{
+                return false;
+            }
+
+        }
+    </script>
+    <style type="text/css">div[id='tjwgly']{float: left;color:rgb(33, 164, 244);}</style>
+    <div class="content">
+        <table class="table">
+            <tr>
+                <td>姓名</td>
+                <td>机构</td>
+                <td>区县</td>
+                <td>角色</td>
+                <td>操作</td>
+            </tr>
+            <volist name="data" id="vo">
+                <tr>
+                    <td>{$vo['XM']}</td>
+                    <td>{$vo['JG']}</td>
+                    <td>{$vo['QX']}</td>
+                    <td>{$vo['ROLE']}</td>
+                    <td> <a href="javascript:void(0)" onclick="deleteuser({$vo['ID']})">删 除</a> </td>
+                </tr>
+            </volist>
+        </table>
+        {$page}
+    </div>
+</div>
+<include file="Common:footer" />
+
+
+
+
+
+
+
+
+
